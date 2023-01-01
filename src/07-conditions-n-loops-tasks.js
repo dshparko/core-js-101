@@ -264,8 +264,25 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  let digit; let digits; let flag; let sum; let j; let len;
+  flag = true;
+  sum = 0;
+  // eslint-disable-next-line prefer-const
+  digits = (`${ccn}`).split('').reverse();
+  for (j = 0, len = digits.length; j < len; j += 1) {
+    digit = digits[j];
+    digit = parseInt(digit, 10);
+    // eslint-disable-next-line no-cond-assign
+    if ((flag = !flag)) {
+      digit *= 2;
+    }
+    if (digit > 9) {
+      digit -= 9;
+    }
+    sum += digit;
+  }
+  return sum % 10 === 0;
 }
 
 /**
@@ -411,6 +428,19 @@ function getMatrixProduct(/* m1, m2 */) {
  *
  */
 function evaluateTicTacToePosition(position) {
+  /* throw new Error('Not implemented'); */
+  /* const getRow = (n) => position[n].join('');
+  const getCol = (n) => position.reduce((acc, value) => acc + value[n], '');
+  const getDiag = (n) => position.reduce((acc, value, index) =>
+    acc + value[Math.abs((position.length - 1) * n - index)], '');
+  const isWinner = (char) => {
+    const combo = char.repeat(3);
+    for (let i = 0; i < position.length; i += 1) {
+      if (getRow(i) === combo || getCol(i) === combo) return true;
+    }
+    return getDiag(0) === combo || getDiag(1) === combo;
+  };
+  */
   const p = position;
   const isWinner = (char) => {
     const checkRow = (n) => `${p[0][n]}${p[1][n]}${p[2][n]}` === char.repeat(3);
